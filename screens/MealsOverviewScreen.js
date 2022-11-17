@@ -1,12 +1,19 @@
 import { MEALS } from "../data/dummy-data";
-import { View, Text, StyleSheet, FlatList } from "react-native";
+import { View, StyleSheet, FlatList } from "react-native";
 import MealItem from "../components/MealItem";
+import { CATEGORIES } from './../data/dummy-data';
 
-function MealsOverviewScreen({route}) {
+function MealsOverviewScreen({route, navigation}) {
     const catId = route.params.categoryId
 
     const displayedMeals = MEALS.filter((mealItem) => {
         return mealItem.categoryIds.indexOf(catId) >= 0;
+    })
+
+    const categoryTitle = CATEGORIES.find((category) => category.id === catId).title;
+
+    navigation.setOptions({
+        title: categoryTitle
     })
 
     function renderMealItem(itemData) {
